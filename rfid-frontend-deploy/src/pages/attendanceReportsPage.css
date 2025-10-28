@@ -1,0 +1,880 @@
+/* rfid-attendance-system/apps/frontend/src/pages/attendanceReportsPage.css */
+
+/* Reusing styles from pCoordinatorDashboard.css for consistency */
+.pcoord-sub-page-container {
+    padding: 0;
+    max-width: 100vw;
+    margin: 0;
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    background-color: #eef2f6; /* Lighter background for sub-pages */
+    color: #333; /* Default text color */
+}
+
+.pcoord-sub-page-main-content {
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-top: calc(var(--total-header-height) + 1.5rem); /* Space for fixed header + top padding */
+    box-sizing: border-box;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.back-button { /* Reusing back-button style */
+    padding: 0.6rem 1.2rem;
+    background-color: #607d8b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 3rem;
+}
+.back-button:hover {
+    background-color: #455a64;
+    transform: translateY(-2px);
+}
+.back-button:active {
+    transform: translateY(0);
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #212121;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.page-description {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Report Type Selector */
+.report-type-selector {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #E0E0E0;
+}
+
+.report-type-selector h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.report-type-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.report-type-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    gap: 0.5rem;
+}
+
+.report-type-btn:hover {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
+}
+
+.report-type-btn.active {
+    background-color: #1976d2;
+    border-color: #1976d2;
+    color: white;
+    box-shadow: 0 4px 16px rgba(25, 118, 210, 0.3);
+}
+
+.report-type-btn .icon {
+    font-size: 2rem;
+}
+
+.report-type-btn .label {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Filter Card */
+.filter-card {
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #E0E0E0;
+}
+
+.filter-heading {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1.8rem;
+    text-align: center;
+}
+
+.report-filter-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    align-items: flex-end;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #E0E0E0;
+}
+
+.report-filter-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.field-note {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.report-filter-form label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 0.5rem;
+}
+
+.report-filter-form select,
+.report-filter-form input[type="date"],
+.report-filter-form input[type="text"] {
+    padding: 0.75rem 1rem;
+    border: 1px solid #C5C5C5;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #F8F9FA;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.report-filter-form select:focus,
+.report-filter-form input[type="date"]:focus,
+.report-filter-form input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.batch-filter-separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.date-range-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    grid-column: span 2;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    grid-column: span 2;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.generate-report-button {
+    padding: 0.8rem 2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.generate-report-button:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.generate-report-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.export-button {
+    padding: 0.8rem 2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.export-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* Report Results Card */
+.report-results-card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-top: 2.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #E5E7EB;
+}
+
+.report-summary {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.report-summary h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.report-summary p {
+  font-size: 1.1rem;
+  color: #333;
+  margin: 0.5rem 0;
+}
+
+.report-summary .font-bold {
+  font-weight: 700;
+  color: #111;
+}
+
+/* Student Report Specific Styles */
+.student-report-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+}
+
+.student-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+}
+
+.student-info p {
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
+}
+
+.student-summary {
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.summary-card h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.stat {
+    text-align: center;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.subject-breakdown {
+    margin-top: 2rem;
+}
+
+.subject-breakdown h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Semester Report Styles */
+.semester-summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.section-report-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e9ecef;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.section-header h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.section-meta {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.section-meta span {
+    margin: 0 0.25rem;
+}
+
+.section-students-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.section-students-table thead th {
+    background-color: #e9ecef;
+    padding: 0.5rem;
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.section-students-table tbody td {
+    padding: 0.5rem;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.section-students-table tbody tr:hover {
+    background-color: #fff;
+}
+
+.no-data {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-style: italic;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.download-excel-button {
+    padding: 0.7rem 1.5rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+.download-excel-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.no-records-message {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  border: 1px dashed #ccc;
+}
+
+/* Report Table Styling (reusing management-table styles) */
+.report-table-container {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 700px; /* Ensure horizontal scroll on small screens */
+}
+
+.report-table thead th {
+  background-color: #F0F4F8;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #444;
+  text-transform: uppercase;
+  border-bottom: 2px solid #D0D4D8;
+}
+
+.report-table tbody td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  font-size: 0.95rem;
+  color: #333;
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.report-table tbody tr:nth-child(even) {
+  background-color: #FFFFFF;
+}
+.report-table tbody tr:nth-child(odd) {
+    background-color: #FBFBFB;
+}
+.report-table tbody tr:hover {
+  background-color: #E8F0F8;
+}
+.report-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: #6c757d;
+    font-style: italic;
+}
+
+.text-green-600 { 
+    color: #28a745 !important; 
+    font-weight: 600;
+}
+
+.text-red-600 { 
+    color: #dc3545 !important; 
+    font-weight: 600;
+}
+
+.attendance-percentage {
+  font-weight: bold;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .report-type-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .date-range-group {
+        grid-column: span 1;
+    }
+    
+    .form-actions {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+  .pcoord-sub-page-main-content {
+    padding: 1rem;
+    padding-top: calc(var(--total-header-height) + 1rem);
+  }
+  .page-title {
+    font-size: 1.8rem;
+  }
+  .report-filter-form {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .report-filter-form .form-group {
+    min-width: unset;
+  }
+  .report-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .report-table {
+    min-width: unset;
+  }
+  .back-button {
+    margin-bottom: 1rem;
+  }
+  .report-type-buttons {
+    grid-template-columns: 1fr;
+  }
+  .student-report-header {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .summary-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .semester-summary-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .date-range-group {
+    grid-template-columns: 1fr;
+  }
+  .form-actions {
+    flex-direction: column;
+  }
+}
+
+/* Enhanced Report Organization Styles */
+.batch-summary-enhanced {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-left: 4px solid #3b82f6;
+}
+
+.batch-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.batch-summary-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f1f5f9;
+}
+
+.batch-summary-item h4 {
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.batch-summary-item .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* Section Report Card Improvements */
+.section-report-card {
+    background: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+}
+
+.section-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.section-header h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+    color: white;
+}
+
+.section-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.95;
+    margin-top: 0.5rem;
+}
+
+.section-meta span {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* Enhanced Table Styling */
+.section-students-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.section-students-table th {
+    background: #f8fafc;
+    color: #374151;
+    font-weight: 600;
+    padding: 0.75rem;
+    text-align: left;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.section-students-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.9rem;
+    background: #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.section-students-table tr:hover td {
+    background-color: #f8fafc;
+}
+
+/* Enhanced Attendance Percentage Styling */
+.attendance-percentage.text-green-600 {
+    color: #16a34a !important;
+    background-color: rgba(22, 163, 74, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.attendance-percentage.text-red-600 {
+    color: #dc2626 !important;
+    background-color: rgba(220, 38, 38, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+/* Report Table Enhancements */
+.report-table tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.report-table tr:hover {
+    background-color: #e2e8f0;
+    transform: scale(1.01);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+/* Additional Report Enhancement Styles */
+.table-container h4 {
+    color: #1e293b;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.section-badge {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.status-badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status-good {
+    background-color: rgba(22, 163, 74, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.status-warning {
+    background-color: rgba(234, 88, 12, 0.1);
+    color: #ea580c;
+    border: 1px solid rgba(234, 88, 12, 0.2);
+}
+
+.performance-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.performance-badge.good {
+    background-color: rgba(22, 163, 74, 0.1);
+    color: #16a34a;
+    border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.performance-badge.needs-attention {
+    background-color: rgba(234, 88, 12, 0.1);
+    color: #ea580c;
+    border: 1px solid rgba(234, 88, 12, 0.2);
+}
+
+.sections-container {
+    margin-top: 2rem;
+}
+
+.sections-container > h4 {
+    color: #1e293b;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #3b82f6;
+}
+
+.students-preview {
+    padding: 1.5rem;
+}
+
+.students-preview h5 {
+    color: #475569;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.rank-badge {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    margin-left: 0.5rem;
+}
+
+.section-performance {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.no-data {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 10px;
+    border: 2px dashed #cbd5e1;
+}
+
+.no-data p {
+    color: #64748b;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.text-muted {
+    color: #94a3b8;
+    font-style: italic;
+}
