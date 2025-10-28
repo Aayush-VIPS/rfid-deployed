@@ -142,7 +142,9 @@ function AttendanceBoard() {
     fetchSessionData();
     fetchDeviceAuthStatus(); // Initial fetch of device auth status
 
-    // Set up polling for real-time attendance updates (every 2 seconds)
+    // Set up polling for real-time attendance updates (every 2 seconds for testing phase)
+    // NOTE: 2-second polling is maintained for critical real-time attendance recording
+    // Students tap RFID and leave immediately - cannot afford latency
     const pollingInterval = setInterval(async () => {
       try {
         await Promise.all([

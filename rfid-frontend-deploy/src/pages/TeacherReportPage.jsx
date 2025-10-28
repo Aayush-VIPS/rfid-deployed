@@ -30,8 +30,9 @@ function TeacherReportPage() {
           api.get('/api/scheduled-classes/helpers/sections'),
         ]);
 
-        const foundSubject = subjectsRes.data.find(s => s.id === parseInt(subjectId));
-        const foundSection = sectionsRes.data.find(s => s.id === parseInt(sectionId));
+        // FIXED: MongoDB uses string IDs, not integers
+        const foundSubject = subjectsRes.data.find(s => s.id === subjectId);
+        const foundSection = sectionsRes.data.find(s => s.id === sectionId);
 
         if (foundSubject) setSubjectName(`${foundSubject.name} (${foundSubject.code})`);
         if (foundSection) setSectionName(foundSection.name);

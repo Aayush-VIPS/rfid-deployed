@@ -9,6 +9,28 @@ import { getSessionById } from '../services/sessionService.js'; // To check sess
 
 const router = express.Router();
 
+// ✅ ADDED: Simple in-memory rate limiting for RFID scans
+// Prevents spam from devices - allows 60 scans per minute per device
+const scanRateLimits = new Map(); // deviceMac -> { count, resetTime }
+
+const checkRateLimit = (deviceMac) => {
+    const now = Date.now();
+    const limit = scanRateLimits.get(deviceMac);
+    
+    if (!limit || now > limit.resetTime) {
+        // Reset or create new limit (60 scans per minute)
+        scanRateLimits.set(deviceMac, { count: 1, resetTime: now + 60000 });
+        return true;
+    }
+    
+    if (limit.count >= 60) {
+        return false; // Rate limit exceeded
+    }
+    
+    limit.count++;
+    return true;
+};
+
 // Middleware to get WebSocket server instance
 router.use((req, res, next) => {
     req.wss = req.app.locals.wss;
@@ -24,6 +46,11 @@ router.use((req, res, next) => {
 router.post('/rfid', authenticateDeviceMiddleware, async (req, res, next) => {
     const { rfidUid, sessionId } = req.body;
     const { id: deviceId, macAddr } = req.device; // Authenticated device info, macAddr is the string MAC
+
+    // ✅ ADDED: Rate limiting check
+    if (!checkRateLimit(macAddr)) {
+        return next(createError(429, 'Too many scan requests. Please wait a moment.'));
+    }
 
     if (!rfidUid || !sessionId) {
         return next(createError(400, 'RFID UID and Session ID are required for scan.'));
